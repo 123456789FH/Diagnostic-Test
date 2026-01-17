@@ -1,0 +1,1118 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>اختبار تشخيصي تفاعلي | رياضيات ثالث ابتدائي – الفصل الدراسي الثاني</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#f6f7fb; --card:#fff; --text:#111827; --muted:#6b7280;
+      --accent:#0f9d58; --accent2:#0b7a44; --danger:#c2410c;
+      --border:rgba(0,0,0,.10); --shadow:0 10px 30px rgba(16,24,40,.10);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:"Tajawal",system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text)}
+    .wrap{max-width:1100px;margin:0 auto;padding:16px}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px;margin:12px 0}
+    header.card{padding:14px 16px}
+    h1{margin:0;font-size:22px}
+    .sub{margin:6px 0 0;color:var(--muted);font-weight:900}
+    .topbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-top:10px}
+    .pill{display:inline-flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--border);border-radius:999px;background:#fff;font-weight:900;color:var(--text);font-size:13px;white-space:nowrap}
+    .progress{height:10px;background:#e5e7eb;border-radius:999px;overflow:hidden;flex:1;min-width:240px}
+    .bar{height:100%;width:0%;background:linear-gradient(135deg,var(--accent),var(--accent2))}
+    .nav{display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;margin:10px 0}
+    .btn{border:0;border-radius:14px;padding:10px 14px;font-weight:900;cursor:pointer;font-family:inherit;transition:.15s transform ease}
+    .btn:active{transform:scale(.98)}
+    .btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff}
+    .btn.ghost{background:#eef2f7;color:var(--text);border:1px solid var(--border)}
+    .btn:disabled{opacity:.55;cursor:not-allowed}
+
+    .sectionTitle{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:0 0 10px}
+    h2{margin:0;font-size:18px}
+
+    .items{display:grid;gap:10px;margin-top:12px}
+    .item{border:1px solid var(--border);border-radius:16px;padding:12px;background:#fff}
+    .item.good{border-color:rgba(15,157,88,.45);box-shadow:0 0 0 3px rgba(15,157,88,.10) inset}
+    .item.bad{border-color:rgba(194,65,12,.45);box-shadow:0 0 0 3px rgba(194,65,12,.10) inset}
+
+    .itemHead{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;flex-wrap:wrap}
+    .q{font-weight:900;line-height:1.85}
+    .hint{color:var(--muted);font-weight:900;margin-top:6px}
+    .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:10px}
+
+    input, textarea, select{
+      font-family:inherit;border:1px solid var(--border);border-radius:14px;padding:10px 12px;background:#fff;outline:none;min-width:160px
+    }
+    textarea{min-width:260px;min-height:90px;resize:vertical}
+
+    .optGrid{display:flex;gap:8px;flex-wrap:wrap}
+    .opt{border:1px solid var(--border);background:#fff;border-radius:999px;padding:8px 12px;font-weight:900;cursor:pointer}
+    .opt.selected{border-color:rgba(15,122,68,.35);background:rgba(15,122,68,.06)}
+    .opt.correct{border-color:rgba(15,157,88,.45);background:rgba(15,157,88,.12)}
+    .opt.wrong{border-color:rgba(194,65,12,.45);background:rgba(194,65,12,.10)}
+
+    .fb{font-weight:900}
+    .ok{color:#0f9d58}
+    .badc{color:#c2410c}
+
+    .visual{margin-top:10px;border:1px solid var(--border);border-radius:16px;padding:10px;background:#fbfbfd;overflow:auto}
+    .center{display:flex;justify-content:center;align-items:center}
+    .mono{font-weight:900}
+    .small{font-size:13px;color:var(--muted);font-weight:900}
+
+    .table{width:100%;border-collapse:collapse}
+    .table th,.table td{border:1px solid var(--border);padding:8px;text-align:center;font-weight:900}
+    .table th{background:#f3f4f6}
+
+    footer{padding:16px 0 26px;text-align:center;color:var(--muted);font-weight:900}
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header class="card">
+      <h1>اختبار تشخيصي تفاعلي | رياضيات ثالث ابتدائي</h1>
+      <div class="sub">الفصل الدراسي الثاني</div>
+      <div class="topbar">
+        <div class="pill" id="partLabel">الجزء ١</div>
+        <div class="progress"><div class="bar" id="bar"></div></div>
+        <div class="pill" id="scorePill">النتيجة: ٠ / ٠</div>
+      </div>
+    </header>
+
+    <section class="card" id="stage"></section>
+
+    <div class="nav">
+      <button class="btn ghost" id="prevBtn">السابق</button>
+      <div class="row">
+        <button class="btn ghost" id="resetBtn">مسح الإجابات</button>
+        <button class="btn primary" id="nextBtn">التالي</button>
+      </div>
+    </div>
+
+    <footer>-أ/ فاطمة هزازي ,ملتقى معلمي ومعلمات الرياضيات , ملتقى التعليم التفاعلي</footer>
+  </div>
+
+<script>
+/* ===== أرقام عربية/إنجليزية ===== */
+const AR_TO_EN = {'٠':'0','١':'1','٢':'2','٣':'3','٤':'4','٥':'5','٦':'6','٧':'7','٨':'8','٩':'9'};
+const EN_TO_AR = ['٠','١','٢','٣','٤','٥','٦','٧','٨','٩'];
+
+function toArDigits(str){
+  return String(str).replace(/[0-9]/g, d => EN_TO_AR[Number(d)]);
+}
+function normalizeDigits(str){
+  const s = String(str ?? '').trim();
+  let out = '';
+  for(const ch of s){ out += (AR_TO_EN[ch] ?? ch); }
+  return out;
+}
+function parseNum(str){
+  const s = normalizeDigits(str);
+  if(!s) return NaN;
+  let out = '';
+  for(const ch of s){
+    const isDigit = ch>='0' && ch<='9';
+    if(isDigit || ch==='-' || ch==='.') out += ch;
+  }
+  if(out==='') return NaN;
+  return Number(out);
+}
+function gcd(a,b){
+  a = Math.abs(a); b = Math.abs(b);
+  while(b){ const t = a % b; a = b; b = t; }
+  return a || 1;
+}
+function parseFrac(str){
+  const s0 = normalizeDigits(str);
+  if(!s0) return null;
+  let s = '';
+  for(const ch of s0){ if(ch !== ' ') s += ch; }
+  let slashIndex = -1;
+  for(let i=0;i<s.length;i++){ if(s[i] === '/'){ slashIndex = i; break; } }
+  if(slashIndex < 0) return null;
+  const nStr = s.slice(0, slashIndex);
+  const dStr = s.slice(slashIndex+1);
+  const n = Number(nStr);
+  const d = Number(dStr);
+  if(!Number.isFinite(n) || !Number.isFinite(d) || d===0) return null;
+  const g = gcd(n,d);
+  return {n:n/g, d:d/g};
+}
+function sameFrac(a,b){ return a && b && a.n===b.n && a.d===b.d; }
+
+function parseTime(str){
+  const s = normalizeDigits(str).trim();
+  if(!s) return null;
+  let colon = -1;
+  for(let i=0;i<s.length;i++){ if(s[i] === ':'){ colon = i; break; } }
+  if(colon >= 0){
+    const hh = s.slice(0, colon);
+    const mm = s.slice(colon+1) || '0';
+    const h = Number(hh);
+    const m = Number(mm);
+    if(!Number.isFinite(h) || !Number.isFinite(m)) return null;
+    return h*60 + m;
+  }
+  const h = Number(s);
+  if(!Number.isFinite(h)) return null;
+  return h*60;
+}
+function esc(s){
+  return String(s ?? '')
+    .replaceAll('&','&amp;')
+    .replaceAll('<','&lt;')
+    .replaceAll('>','&gt;')
+    .replaceAll('"','&quot;')
+    .replaceAll("'","&#39;");
+}
+
+/* ===== رسومات داخلية (SVG) ===== */
+function spinnerSVG(type){
+  const R=70, CX=90, CY=90;
+  const toRad = (deg)=>deg*Math.PI/180;
+  function sectorPath(a0,a1){
+    const x0 = CX + R*Math.cos(toRad(a0));
+    const y0 = CY + R*Math.sin(toRad(a0));
+    const x1 = CX + R*Math.cos(toRad(a1));
+    const y1 = CY + R*Math.sin(toRad(a1));
+    const large = (a1-a0) > 180 ? 1 : 0;
+    return `M ${CX} ${CY} L ${x0} ${y0} A ${R} ${R} 0 ${large} 1 ${x1} ${y1} Z`;
+  }
+  let segs=[];
+  if(type===1){
+    segs = [
+      {a0:-90,a1:0,c:'#facc15'},
+      {a0:0,a1:90,c:'#60a5fa'},
+      {a0:90,a1:180,c:'#60a5fa'},
+      {a0:180,a1:270,c:'#60a5fa'}
+    ];
+  }else if(type===2){
+    segs = [
+      {a0:-90,a1:-30,c:'#ef4444'},
+      {a0:-30,a1:30,c:'#ef4444'},
+      {a0:30,a1:90,c:'#22c55e'},
+      {a0:90,a1:150,c:'#22c55e'},
+      {a0:150,a1:210,c:'#22c55e'},
+      {a0:210,a1:270,c:'#22c55e'}
+    ];
+  }else{
+    segs = [
+      {a0:-90,a1:30,c:'#ef4444'},
+      {a0:30,a1:150,c:'#ef4444'},
+      {a0:150,a1:270,c:'#60a5fa'}
+    ];
+  }
+  const arrow = `<line x1="${CX}" y1="${CY}" x2="${CX+55}" y2="${CY-10}" stroke="#111827" stroke-width="4"/><circle cx="${CX}" cy="${CY}" r="6" fill="#111827"/>`;
+  let svg = `<svg width="180" height="180" viewBox="0 0 180 180" aria-label="قرص احتمال">`;
+  for(const s of segs){
+    svg += `<path d="${sectorPath(s.a0,s.a1)}" fill="${s.c}" stroke="#111827" stroke-width="2"/>`;
+  }
+  svg += arrow + `</svg>`;
+  return svg;
+}
+function spinnersWithLabels(){
+  return `
+    <div class="visual">
+      <div class="row" style="justify-content:space-between;gap:14px;flex-wrap:wrap">
+        <div class="center" style="flex-direction:column;gap:8px;min-width:190px">
+          <div class="pill">الشكل ١</div>${spinnerSVG(1)}
+        </div>
+        <div class="center" style="flex-direction:column;gap:8px;min-width:190px">
+          <div class="pill">الشكل ٢</div>${spinnerSVG(2)}
+        </div>
+        <div class="center" style="flex-direction:column;gap:8px;min-width:190px">
+          <div class="pill">الشكل ٣</div>${spinnerSVG(3)}
+        </div>
+      </div>
+    </div>`;
+}
+function paperFlowerVisual(){
+  return `
+    <div class="visual">
+      <div class="row" style="justify-content:space-between;gap:16px;flex-wrap:wrap">
+        <div style="min-width:260px">
+          <div class="mono">المشابك</div>
+          <div class="row" style="gap:12px">
+            <div class="pill">🖇️🖇️🖇️🖇️🖇️🖇️</div>
+            <div class="pill">🖇️🖇️🖇️🖇️🖇️🖇️</div>
+          </div>
+        </div>
+        <div style="min-width:260px">
+          <div class="mono">الأزهار</div>
+          <div class="row" style="gap:12px">
+            <div class="pill">🌻🌻🌻🌻🌻🌻</div>
+            <div class="pill">🌻🌻🌻</div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+function pictographVisual(){
+  const row = (icon,count)=> new Array(count).fill(icon).join(' ');
+  return `
+    <div class="visual">
+      <table class="table">
+        <thead><tr><th>الفصل المفضل</th><th>الرموز</th></tr></thead>
+        <tbody>
+          <tr><td>الربيع</td><td>${row('🌻',3)}</td></tr>
+          <tr><td>الصيف</td><td>${row('🏀',6)}</td></tr>
+          <tr><td>الخريف</td><td>${row('🍂',4)}</td></tr>
+          <tr><td>الشتاء</td><td>${row('🧢',5)}</td></tr>
+        </tbody>
+      </table>
+      <div class="small">كل رمز يمثل طالبين.</div>
+    </div>`;
+}
+function mulArraysVisual(){
+  const grid = (r,c)=>{
+    let html = `<div style="display:inline-grid;grid-template-columns:repeat(${c},22px);gap:4px">`;
+    for(let i=0;i<r*c;i++) html += `<div style="width:22px;height:22px;border:2px solid #111827;background:#fff"></div>`;
+    html += `</div>`;
+    return html;
+  };
+  return `
+    <div class="visual">
+      <div class="row" style="justify-content:space-between;gap:16px;flex-wrap:wrap">
+        <div><div class="pill">الشبكة (١)</div>${grid(2,4)}</div>
+        <div><div class="pill">الشبكة (٢)</div>${grid(4,2)}</div>
+      </div>
+    </div>`;
+}
+function compareVisual(){
+  return `
+    <div class="visual">
+      <div class="row" style="justify-content:space-around;gap:12px;flex-wrap:wrap">
+        <div class="pill">🧃 عصير</div>
+        <div class="pill">🥛 حليب</div>
+        <div class="pill">🔑 مفتاح</div>
+        <div class="pill">🖊️ قلم</div>
+        <div class="pill">🐦 طائر</div>
+        <div class="pill">🐈 قط</div>
+      </div>
+    </div>`;
+}
+function clockSVG(){
+  const CX=90, CY=90, R=70;
+  let svg = `<svg width="200" height="200" viewBox="0 0 180 180" aria-label="ساعة">`;
+  svg += `<circle cx="${CX}" cy="${CY}" r="${R}" fill="#fff" stroke="#111827" stroke-width="4"/>`;
+  for(let i=0;i<12;i++){
+    const ang = (i*30-90)*Math.PI/180;
+    const x1 = CX + (R-6)*Math.cos(ang);
+    const y1 = CY + (R-6)*Math.sin(ang);
+    const x2 = CX + (R-18)*Math.cos(ang);
+    const y2 = CY + (R-18)*Math.sin(ang);
+    svg += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#111827" stroke-width="3"/>`;
+  }
+  svg += `<line x1="${CX}" y1="${CY}" x2="${CX}" y2="${CY-(R-22)}" stroke="#2563eb" stroke-width="5" stroke-linecap="round"/>`;
+  const angH = (5*30-90)*Math.PI/180;
+  svg += `<line x1="${CX}" y1="${CY}" x2="${CX+(R-35)*Math.cos(angH)}" y2="${CY+(R-35)*Math.sin(angH)}" stroke="#ef4444" stroke-width="6" stroke-linecap="round"/>`;
+  svg += `<circle cx="${CX}" cy="${CY}" r="6" fill="#111827"/>`;
+  svg += `</svg>`;
+  return svg;
+}
+
+/* ===== رسومات المساحة (مطابقة للصورة) ===== */
+function areaShapesVisual(){
+  const mk = (label, map)=> {
+    const rows = map.length, cols = map[0].length;
+    let html = `<div class="center" style="flex-direction:column;gap:8px;min-width:220px">
+      <div class="pill">${label}</div>
+      <div style="display:grid;grid-template-columns:repeat(${cols},22px);gap:4px">`;
+    for(let r=0;r<rows;r++){
+      for(let c=0;c<cols;c++){
+        const filled = map[r][c] === '1';
+        html += `<div style="width:22px;height:22px;border:2px solid #111827;background:${filled ? '#fbbf24' : '#fff'}"></div>`;
+      }
+    }
+    html += `</div></div>`;
+    return html;
+  };
+
+  // الشكل (٥): 2×2 أعلى اليمين
+  const shape5 = [
+    "0011",
+    "0011",
+    "0000",
+    "0000",
+  ];
+
+  // الشكل (٦): (٣ أعلى) + (١ يمين وسط) + (٣ أسفل)
+  const shape6 = [
+    "0111",
+    "0001",
+    "0111",
+    "0000",
+  ];
+
+  return `
+    <div class="visual">
+      <div class="row" style="justify-content:space-between;gap:16px;flex-wrap:wrap">
+        ${mk("الشكل (٥)", shape5)}
+        ${mk("الشكل (٦)", shape6)}
+      </div>
+      <div class="small">كل مربع يمثل ١ وحدة مربعة.</div>
+    </div>`;
+}
+
+function partsVisual(){
+  return `
+    <div class="visual">
+      <div class="row" style="justify-content:space-between;gap:14px;flex-wrap:wrap">
+        ${rect2()}
+        ${circle3()}
+        ${triangle4()}
+        ${pentagon5()}
+      </div>
+    </div>`;
+  function rect2(){
+    return `<div class="center" style="flex-direction:column;gap:6px;min-width:180px">
+      <div class="pill">المستطيل</div>
+      <svg width="160" height="90" viewBox="0 0 160 90">
+        <rect x="10" y="10" width="140" height="70" fill="#fff" stroke="#111827" stroke-width="3"/>
+        <line x1="80" y1="10" x2="80" y2="80" stroke="#111827" stroke-width="3"/>
+      </svg>
+    </div>`;
+  }
+  function circle3(){
+    return `<div class="center" style="flex-direction:column;gap:6px;min-width:180px">
+      <div class="pill">الدائرة</div>
+      <svg width="160" height="110" viewBox="0 0 160 110">
+        <circle cx="80" cy="55" r="42" fill="#fff" stroke="#111827" stroke-width="3"/>
+        <line x1="80" y1="13" x2="80" y2="55" stroke="#111827" stroke-width="3"/>
+        <line x1="38" y1="55" x2="122" y2="55" stroke="#111827" stroke-width="3"/>
+      </svg>
+    </div>`;
+  }
+  function triangle4(){
+    return `<div class="center" style="flex-direction:column;gap:6px;min-width:180px">
+      <div class="pill">المثلث</div>
+      <svg width="160" height="120" viewBox="0 0 160 120">
+        <polygon points="80,10 20,105 140,105" fill="#fff" stroke="#111827" stroke-width="3"/>
+        <line x1="80" y1="10" x2="80" y2="105" stroke="#111827" stroke-width="3"/>
+        <line x1="50" y1="60" x2="110" y2="60" stroke="#111827" stroke-width="3"/>
+      </svg>
+    </div>`;
+  }
+  function pentagon5(){
+    return `<div class="center" style="flex-direction:column;gap:6px;min-width:180px">
+      <div class="pill">خماسي الأضلاع</div>
+      <svg width="160" height="120" viewBox="0 0 160 120">
+        <polygon points="80,12 22,52 44,108 116,108 138,52" fill="#fff" stroke="#111827" stroke-width="3"/>
+        <line x1="80" y1="60" x2="80" y2="12" stroke="#111827" stroke-width="3"/>
+        <line x1="80" y1="60" x2="22" y2="52" stroke="#111827" stroke-width="3"/>
+        <line x1="80" y1="60" x2="44" y2="108" stroke="#111827" stroke-width="3"/>
+        <line x1="80" y1="60" x2="116" y2="108" stroke="#111827" stroke-width="3"/>
+        <line x1="80" y1="60" x2="138" y2="52" stroke="#111827" stroke-width="3"/>
+      </svg>
+    </div>`;
+  }
+}
+function halvesThirdsQuartersVisual(){
+  return `
+    <div class="visual">
+      <div class="row" style="justify-content:space-between;gap:14px;flex-wrap:wrap">
+        ${rect4()} ${circleThirds()} ${diamond4()} ${heart2()}
+      </div>
+    </div>`;
+  function rect4(){
+    return `<div class="center" style="flex-direction:column;gap:6px;min-width:180px">
+      <div class="pill">مستطيل</div>
+      <svg width="160" height="90" viewBox="0 0 160 90">
+        <rect x="10" y="10" width="140" height="70" fill="#fff" stroke="#111827" stroke-width="3"/>
+        <line x1="45" y1="10" x2="45" y2="80" stroke="#111827" stroke-width="3"/>
+        <line x1="80" y1="10" x2="80" y2="80" stroke="#111827" stroke-width="3"/>
+        <line x1="115" y1="10" x2="115" y2="80" stroke="#111827" stroke-width="3"/>
+      </svg>
+    </div>`;
+  }
+  function circleThirds(){
+    return `<div class="center" style="flex-direction:column;gap:6px;min-width:180px">
+      <div class="pill">دائرة</div>
+      <svg width="160" height="110" viewBox="0 0 160 110">
+        <circle cx="80" cy="55" r="42" fill="#fff" stroke="#111827" stroke-width="3"/>
+        <line x1="80" y1="55" x2="80" y2="13" stroke="#111827" stroke-width="3"/>
+        <line x1="80" y1="55" x2="44" y2="90" stroke="#111827" stroke-width="3"/>
+        <line x1="80" y1="55" x2="116" y2="90" stroke="#111827" stroke-width="3"/>
+      </svg>
+    </div>`;
+  }
+  function diamond4(){
+    return `<div class="center" style="flex-direction:column;gap:6px;min-width:180px">
+      <div class="pill">معين</div>
+      <svg width="160" height="110" viewBox="0 0 160 110">
+        <polygon points="80,12 140,55 80,98 20,55" fill="#fff" stroke="#111827" stroke-width="3"/>
+        <line x1="80" y1="12" x2="80" y2="98" stroke="#111827" stroke-width="3"/>
+        <line x1="20" y1="55" x2="140" y2="55" stroke="#111827" stroke-width="3"/>
+      </svg>
+    </div>`;
+  }
+  function heart2(){
+    return `<div class="center" style="flex-direction:column;gap:6px;min-width:180px">
+      <div class="pill">قلب</div>
+      <svg width="160" height="120" viewBox="0 0 160 120">
+        <path d="M80 98 C 20 60, 35 22, 60 28 C 72 31, 80 44, 80 44 C 80 44, 88 31, 100 28 C 125 22, 140 60, 80 98 Z"
+          fill="#fff" stroke="#111827" stroke-width="3"/>
+        <line x1="80" y1="40" x2="80" y2="98" stroke="#111827" stroke-width="3"/>
+      </svg>
+    </div>`;
+  }
+}
+function fracBar6(){
+  return `
+    <div class="visual center">
+      <div style="display:grid;grid-template-columns:repeat(6,22px);gap:4px">
+        <div style="width:22px;height:40px;border:2px solid #111827;background:#fbbf24"></div>
+        <div style="width:22px;height:40px;border:2px solid #111827;background:#fff"></div>
+        <div style="width:22px;height:40px;border:2px solid #111827;background:#fff"></div>
+        <div style="width:22px;height:40px;border:2px solid #111827;background:#fbbf24"></div>
+        <div style="width:22px;height:40px;border:2px solid #111827;background:#fff"></div>
+        <div style="width:22px;height:40px;border:2px solid #111827;background:#fff"></div>
+      </div>
+    </div>`;
+}
+function fracCircleQuarter(){
+  return `
+    <div class="visual center">
+      <svg width="180" height="160" viewBox="0 0 180 160">
+        <circle cx="90" cy="80" r="55" fill="#fff" stroke="#111827" stroke-width="3"/>
+        <path d="M90 80 L90 25 A55 55 0 0 1 145 80 Z" fill="#fbbf24" stroke="#111827" stroke-width="3"/>
+        <line x1="90" y1="25" x2="90" y2="135" stroke="#111827" stroke-width="3"/>
+        <line x1="35" y1="80" x2="145" y2="80" stroke="#111827" stroke-width="3"/>
+      </svg>
+    </div>`;
+}
+function fracGrid10(){
+  return `
+    <div class="visual center">
+      <div style="display:grid;grid-template-columns:repeat(5,22px);gap:4px">
+        <div style="width:22px;height:22px;border:2px solid #111827;background:#fbbf24"></div>
+        <div style="width:22px;height:22px;border:2px solid #111827;background:#fff"></div>
+        <div style="width:22px;height:22px;border:2px solid #111827;background:#fbbf24"></div>
+        <div style="width:22px;height:22px;border:2px solid #111827;background:#fff"></div>
+        <div style="width:22px;height:22px;border:2px solid #111827;background:#fbbf24"></div>
+
+        <div style="width:22px;height:22px;border:2px solid #111827;background:#fff"></div>
+        <div style="width:22px;height:22px;border:2px solid #111827;background:#fbbf24"></div>
+        <div style="width:22px;height:22px;border:2px solid #111827;background:#fff"></div>
+        <div style="width:22px;height:22px;border:2px solid #111827;background:#fbbf24"></div>
+        <div style="width:22px;height:22px;border:2px solid #111827;background:#fff"></div>
+      </div>
+    </div>`;
+}
+function geometryOdd2D(){
+  return `
+    <div class="visual">
+      <div class="row" style="justify-content:space-between;gap:14px;flex-wrap:wrap">
+        ${shapeBox('الشكل ١', `<rect x="20" y="25" width="120" height="55" rx="6" fill="#fff" stroke="#2563eb" stroke-width="4"/>`)}
+        ${shapeBox('الشكل ٢', `<rect x="58" y="18" width="44" height="74" rx="6" fill="#fff" stroke="#2563eb" stroke-width="4"/>`)}
+        ${shapeBox('الشكل ٣', `<rect x="30" y="35" width="100" height="40" rx="6" fill="#fff" stroke="#2563eb" stroke-width="4"/>`)}
+        ${shapeBox('الشكل ٤', `<ellipse cx="80" cy="55" rx="60" ry="30" fill="#fff" stroke="#2563eb" stroke-width="4"/>`)}
+      </div>
+    </div>`;
+  function shapeBox(label, inner){
+    return `<div class="center" style="flex-direction:column;gap:8px;min-width:180px">
+      <div class="pill">${label}</div>
+      <svg width="160" height="110" viewBox="0 0 160 110">${inner}</svg>
+    </div>`;
+  }
+}
+function geometryOdd3D(){
+  return `
+    <div class="visual">
+      <div class="row" style="justify-content:space-between;gap:14px;flex-wrap:wrap">
+        ${shapeBox('الشكل ١', prism())}
+        ${shapeBox('الشكل ٢', cylinder())}
+        ${shapeBox('الشكل ٣', triangle2D())}
+        ${shapeBox('الشكل ٤', pyramid())}
+      </div>
+    </div>`;
+  function shapeBox(label, inner){
+    return `<div class="center" style="flex-direction:column;gap:8px;min-width:180px">
+      <div class="pill">${label}</div>
+      <svg width="160" height="110" viewBox="0 0 160 110">${inner}</svg>
+    </div>`;
+  }
+  function prism(){
+    return `
+      <rect x="25" y="30" width="80" height="50" fill="#fde68a" stroke="#b45309" stroke-width="3"/>
+      <polygon points="105,30 130,20 130,70 105,80" fill="#fbbf24" stroke="#b45309" stroke-width="3"/>
+      <line x1="105" y1="30" x2="130" y2="20" stroke="#b45309" stroke-width="3"/>
+      <line x1="105" y1="80" x2="130" y2="70" stroke="#b45309" stroke-width="3"/>`;
+  }
+  function cylinder(){
+    return `
+      <ellipse cx="80" cy="28" rx="38" ry="12" fill="#fde68a" stroke="#b45309" stroke-width="3"/>
+      <rect x="42" y="28" width="76" height="52" fill="#fde68a" stroke="#b45309" stroke-width="3"/>
+      <ellipse cx="80" cy="80" rx="38" ry="12" fill="#fbbf24" stroke="#b45309" stroke-width="3"/>`;
+  }
+  function triangle2D(){
+    return `<polygon points="80,20 30,90 130,90" fill="#fde68a" stroke="#b45309" stroke-width="3"/>`;
+  }
+  function pyramid(){
+    return `
+      <polygon points="80,18 30,92 130,92" fill="#fde68a" stroke="#b45309" stroke-width="3"/>
+      <line x1="80" y1="18" x2="80" y2="92" stroke="#b45309" stroke-width="3" stroke-dasharray="6 6"/>`;
+  }
+}
+
+/* ===== رسومات أسئلة الاختلاف (4 أزواج) ===== */
+function pairTrianglesVisual(){
+  return `
+    <div class="visual">
+      <div class="row" style="justify-content:space-around;gap:16px;flex-wrap:wrap">
+        <div class="center" style="flex-direction:column;gap:8px;min-width:200px">
+          <div class="pill">الشكل ١</div>
+          <svg width="180" height="120" viewBox="0 0 180 120" aria-label="مثلث 1">
+            <polygon points="20,100 160,100 160,20" fill="none" stroke="#2563eb" stroke-width="4"/>
+          </svg>
+        </div>
+        <div class="center" style="flex-direction:column;gap:8px;min-width:200px">
+          <div class="pill">الشكل ٢</div>
+          <svg width="180" height="120" viewBox="0 0 180 120" aria-label="مثلث 2">
+            <polygon points="90,20 60,100 120,100" fill="none" stroke="#2563eb" stroke-width="4"/>
+          </svg>
+        </div>
+      </div>
+    </div>`;
+}
+function pairIrregularRectVisual(){
+  return `
+    <div class="visual">
+      <div class="row" style="justify-content:space-around;gap:16px;flex-wrap:wrap">
+        <div class="center" style="flex-direction:column;gap:8px;min-width:200px">
+          <div class="pill">الشكل ١</div>
+          <svg width="180" height="120" viewBox="0 0 180 120" aria-label="شكل غير منتظم">
+            <path d="M55 22
+                     C35 30, 30 55, 48 60
+                     C40 78, 55 98, 80 92
+                     C92 112, 132 102, 122 74
+                     C150 66, 146 38, 118 36
+                     C110 22, 80 14, 55 22 Z"
+                  fill="none" stroke="#2563eb" stroke-width="4" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="center" style="flex-direction:column;gap:8px;min-width:200px">
+          <div class="pill">الشكل ٢</div>
+          <svg width="180" height="120" viewBox="0 0 180 120" aria-label="مستطيل">
+            <rect x="35" y="30" width="110" height="60" fill="none" stroke="#2563eb" stroke-width="4"/>
+          </svg>
+        </div>
+      </div>
+    </div>`;
+}
+function pairLShapesVisual(){
+  return `
+    <div class="visual">
+      <div class="row" style="justify-content:space-around;gap:16px;flex-wrap:wrap">
+        <div class="center" style="flex-direction:column;gap:8px;min-width:200px">
+          <div class="pill">الشكل ١</div>
+          <svg width="180" height="120" viewBox="0 0 180 120" aria-label="شكل L 1">
+            <path d="M50 20 H120 V40 H70 V100 H50 Z"
+                  fill="none" stroke="#2563eb" stroke-width="4" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="center" style="flex-direction:column;gap:8px;min-width:200px">
+          <div class="pill">الشكل ٢</div>
+          <svg width="180" height="120" viewBox="0 0 180 120" aria-label="شكل L 2">
+            <path d="M130 20 H60 V40 H110 V100 H130 Z"
+                  fill="none" stroke="#2563eb" stroke-width="4" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>`;
+}
+function pairOctagonOvalVisual(){
+  return `
+    <div class="visual">
+      <div class="row" style="justify-content:space-around;gap:16px;flex-wrap:wrap">
+        <div class="center" style="flex-direction:column;gap:8px;min-width:200px">
+          <div class="pill">الشكل ١</div>
+          <svg width="180" height="120" viewBox="0 0 180 120" aria-label="مثمن">
+            <polygon points="70,15 110,15 145,40 145,80 110,105 70,105 35,80 35,40"
+                     fill="none" stroke="#2563eb" stroke-width="4" />
+          </svg>
+        </div>
+        <div class="center" style="flex-direction:column;gap:8px;min-width:200px">
+          <div class="pill">الشكل ٢</div>
+          <svg width="180" height="120" viewBox="0 0 180 120" aria-label="بيضاوي">
+            <ellipse cx="90" cy="60" rx="70" ry="35" fill="none" stroke="#2563eb" stroke-width="4"/>
+          </svg>
+        </div>
+      </div>
+    </div>`;
+}
+
+/* ===== بيانات الاختبار ===== */
+const TEST = [
+  { title:"أجد ناتج الطرح (مهارات سابقة)", items:[
+    {id:"sub1", type:"num", prompt:"١٤ − ٧", ans:7},
+    {id:"sub2", type:"num", prompt:"٣٦ − ٦", ans:30},
+    {id:"sub3", type:"num", prompt:"٤٥ − ٩", ans:36},
+    {id:"sub4", type:"num", prompt:"٥٦ − ٨", ans:48},
+    {id:"sub5", type:"num", prompt:"في مكتبة المدرسة ١٨ طالبًا، إذا كان ٦ منهم يقرؤون قصصًا تاريخية، فما عدد الطلاب الذين يقرؤون أصنافًا أخرى من القصص؟", ans:12},
+  ]},
+  { title:"مجموعات متساوية (مهارات سابقة)", items:[
+    {id:"g0", type:"info", prompt:"أجب عن الأسئلة التالية:", visual:paperFlowerVisual},
+    {id:"g1", type:"mc", prompt:"أيُّ الزوجين من المجموعتين الآتيتين متساويان؟", opts:["المشابك","الأزهار"], ans:"المشابك"},
+    {id:"g2", type:"num", prompt:"تقاسمت هند وسارة ووفاء صندوقًا من الحلوى، أخذت كل واحدة منهن ٧ قطع. كم قطعة حلوى كانت في الصندوق؟", ans:21},
+  ]},
+  { title:"أجد ناتج الضرب (مهارات سابقة)", items:[
+    {id:"m1", type:"num", prompt:"٤ × ٢", ans:8},
+    {id:"m2", type:"num", prompt:"٦ × ٣", ans:18},
+    {id:"m3", type:"num", prompt:"٤ × ٥", ans:20},
+    {id:"m4", type:"num", prompt:"٨ × ٧", ans:56},
+    {id:"m5i", type:"info", prompt:"اكتب جملتي الضرب المناسبتين للشبكتين:", visual:mulArraysVisual},
+    {id:"m5", type:"mul2", prompt:"جملتا الضرب:", acceptPairs:[[2,4,8],[4,2,8]]},
+  ]},
+  { title:"التمثيل بالصور (مهارات سابقة)", items:[
+    {id:"p0", type:"info", prompt:"استعمل التمثيل بالصور ثم أجب:", visual:pictographVisual},
+    {id:"p1", type:"num", prompt:"ما عدد الطلاب الذين يفضلون فصل الصيف؟", ans:12},
+    {id:"p2", type:"num", prompt:"كم يزيد عدد الطلاب الذين يفضلون فصل الشتاء على أولئك الذين يفضلون فصل الخريف؟", ans:2},
+    {id:"p3", type:"mc", prompt:"ما الفصل الذي يفضله ١٠ من الطلاب؟", opts:["الربيع","الصيف","الخريف","الشتاء"], ans:"الشتاء"},
+    {id:"p4", type:"num", prompt:"ما عدد الطلاب جميعهم؟", ans:36},
+  ]},
+  { title:"أجد ناتج الجمع (مهارات سابقة)", items:[
+    {id:"a1", type:"num", prompt:"٣ + ٢ + ٥ + ٦", ans:16},
+    {id:"a2", type:"num", prompt:"٧ + ٨ + ٤ + ١", ans:20},
+    {id:"a3", type:"num", prompt:"٥ + ٦ + ٩ + ٢", ans:22},
+  ]},
+  { title:"الاحتمال (مهارات سابقة)", items:[
+    {id:"s0", type:"info", prompt:"حدد اللون الأكثر احتمالًا أن يتوقف عنده المؤشر في كل شكل:", visual:spinnersWithLabels},
+    {id:"s1", type:"mc", prompt:"الشكل ١: اللون الأكثر احتمالًا هو:", opts:["الأحمر","الأزرق","الأصفر","الأخضر"], ans:"الأزرق"},
+    {id:"s2", type:"mc", prompt:"الشكل ٢: اللون الأكثر احتمالًا هو:", opts:["الأحمر","الأزرق","الأصفر","الأخضر"], ans:"الأخضر"},
+    {id:"s3", type:"mc", prompt:"الشكل ٣: اللون الأكثر احتمالًا هو:", opts:["الأحمر","الأزرق","الأصفر","الأخضر"], ans:"الأحمر"},
+  ]},
+  { title:"الأجزاء المتطابقة والكسور (مهارات سابقة)", items:[
+    {id:"pt0", type:"info", prompt:"اكتب عدد الأجزاء ثم حدد هل الأجزاء متطابقة أم غير متطابقة:", visual:partsVisual},
+    {id:"pt1", type:"parts", prompt:"المستطيل", ans:{count:2, cong:"متطابقة"}},
+    {id:"pt2", type:"parts", prompt:"الدائرة", ans:{count:3, cong:"غير متطابقة"}},
+    {id:"pt3", type:"parts", prompt:"المثلث", ans:{count:4, cong:"غير متطابقة"}},
+    {id:"pt4", type:"parts", prompt:"خماسي الأضلاع", ans:{count:5, cong:"متطابقة"}},
+    {id:"pt5", type:"self", prompt:"ارسم دائرة مقسمة إلى ٦ أجزاء متطابقة."},
+
+    {id:"hk0", type:"info", prompt:"حدد الأجزاء المتطابقة ثم اختر: أنصاف أو أثلاث أو أرباع:", visual:halvesThirdsQuartersVisual},
+    {id:"hk1", type:"mc", prompt:"الشكل ١ (المستطيل):", opts:["أنصاف","أثلاث","أرباع"], ans:"أرباع"},
+    {id:"hk2", type:"mc", prompt:"الشكل ٢ (الدائرة):", opts:["أنصاف","أثلاث","أرباع"], ans:"أثلاث"},
+    {id:"hk3", type:"mc", prompt:"الشكل ٣ (المعين):", opts:["أنصاف","أثلاث","أرباع"], ans:"أرباع"},
+    {id:"hk4", type:"mc", prompt:"الشكل ٤ (القلب):", opts:["أنصاف","أثلاث","أرباع"], ans:"أنصاف"},
+    {id:"hk5", type:"self", prompt:"ارسم مستطيلاً ثم اقسمه إلى ١٠ أجزاء متطابقة."},
+
+    {id:"fc1", type:"frac", prompt:"اكتب الكسر الذي يمثل الجزء الملون (الشكل ١):", visual:fracGrid10, ansList:[{n:5,d:10},{n:1,d:2}]},
+    {id:"fc2", type:"frac", prompt:"اكتب الكسر الذي يمثل الجزء الملون (الشكل ٢):", visual:fracCircleQuarter, ansList:[{n:1,d:4}]},
+    {id:"fc3", type:"frac", prompt:"اكتب الكسر الذي يمثل الجزء الملون (الشكل ٣):", visual:fracBar6, ansList:[{n:2,d:6},{n:1,d:3}]},
+    {id:"fc4", type:"frac", prompt:"في حديقة ٥ شجرات كبيرة، ٣ منها مثمرة. ما الكسر الذي يمثل عدد الشجرات غير المثمرة؟", ansList:[{n:2,d:5}]},
+  ]},
+  { title:"المقارنة والمساحة والوقت (مهارات سابقة)", items:[
+    {id:"c0", type:"info", prompt:"أجب عن الأسئلة التالية:", visual:compareVisual},
+    {id:"c1", type:"mc", prompt:"أحوط حول الذي يحوي أكثر:", opts:["العصير","الحليب"], ans:"الحليب"},
+    {id:"c2", type:"mc", prompt:"أحوط الأطول:", opts:["المفتاح","القلم"], ans:"القلم"},
+    {id:"c3", type:"mc", prompt:"أحوط الأقصر:", opts:["الطائر","القط"], ans:"الطائر"},
+    {id:"c4", type:"mc", prompt:"مشى خالد ٥ كيلومترات ومشى سعيد ٥ أمتار. من مشى مسافة أكبر؟", opts:["خالد","سعيد"], ans:"خالد"},
+
+    /* ✅ المساحة = عدد جميع المربعات */
+    {id:"ar0", type:"info", prompt:"المساحة: احسب مساحة كل شكل (عدّ جميع المربعات).", visual:areaShapesVisual},
+    {id:"ar1", type:"num", prompt:"مساحة الشكل (٥)", ans:16},
+    {id:"ar2", type:"num", prompt:"مساحة الشكل (٦)", ans:16},
+    {id:"ar3", type:"mc", prompt:"هل يمكن أن يكون لشكلين مختلفين المساحة نفسها؟", opts:["نعم","لا"], ans:"نعم"},
+
+    {id:"t0", type:"info", prompt:"الساعة:", visual:()=>`<div class="visual center">${clockSVG()}</div>`},
+    {id:"t1", type:"time", prompt:"اكتب الوقت الذي تشير إليه الساعة (مثال: ٥ أو ٥:٠٠):", ansMinutes:5*60},
+    {id:"t2", type:"time", prompt:"يفتح المجمع التجاري الساعة ٨:٠٠ صباحًا. إذا غادر بعد ٣ ساعات، ففي أي ساعة غادر؟", ansMinutes:11*60},
+  ]},
+  { title:"الهندسة (مهارات سابقة)", items:[
+    {id:"go1", type:"info", prompt:"س٢١: حدد الشكل المختلف عن الأشكال الأخرى:", visual:geometryOdd2D},
+    {id:"q21", type:"mc", prompt:"الإجابة:", opts:["الشكل ١","الشكل ٢","الشكل ٣","الشكل ٤"], ans:"الشكل ٤"},
+
+    {id:"go2", type:"info", prompt:"س٢٢: حدد الشكل المختلف عن الأشكال الأخرى:", visual:geometryOdd3D},
+    {id:"q22", type:"mc", prompt:"الإجابة:", opts:["الشكل ١","الشكل ٢","الشكل ٣","الشكل ٤"], ans:"الشكل ٣"},
+
+    {id:"q23", type:"mc", prompt:"مع سعاد صندوق وعلبة عصير وورقة. أيّها يختلف عن الاثنين الآخرين؟", opts:["الصندوق","علبة العصير","الورقة"], ans:"الورقة"},
+
+    {id:"tx1", type:"text", prompt:"اذكر أوجه الاختلاف بين الشكلين في الزوج (مثلثان).", visual:pairTrianglesVisual},
+    {id:"tx2", type:"text", prompt:"اذكر أوجه الاختلاف بين الشكلين في الزوج (شكل غير منتظم ومستطيل).", visual:pairIrregularRectVisual},
+    {id:"tx3", type:"text", prompt:"اذكر أوجه الاختلاف بين الشكلين في الزوج (شكلان على هيئة حرف L).", visual:pairLShapesVisual},
+    {id:"tx4", type:"text", prompt:"اذكر أوجه الاختلاف بين الشكلين في الزوج (مثمن وبيضاوي).", visual:pairOctagonOvalVisual},
+
+    {id:"dr1", type:"self", prompt:"ارسم خطًا ليكون شبه منحرف."},
+    {id:"dr2", type:"self", prompt:"ارسم شكلين مختلفين لكل منهما ٨ أضلاع."},
+  ]},
+];
+
+/* ===== تخزين/حالة ===== */
+const STORAGE_KEY = "diag_g3_s2_ok_v1";
+const stage = document.getElementById("stage");
+const bar = document.getElementById("bar");
+const partLabel = document.getElementById("partLabel");
+const scorePill = document.getElementById("scorePill");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+const resetBtn = document.getElementById("resetBtn");
+
+const state = { idx:0, store: loadStore() };
+
+function loadStore(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return {};
+    const obj = JSON.parse(raw);
+    return (obj && typeof obj === "object") ? obj : {};
+  }catch(e){ return {}; }
+}
+function saveStore(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state.store)); }
+
+function k(secIndex, qid){ return "s"+secIndex+"__"+qid; }
+function getEntry(secIndex, qid){
+  const e = state.store[k(secIndex,qid)];
+  if(e && typeof e === "object") return e;
+  return {v:null, checked:false};
+}
+function setValue(secIndex, qid, v){
+  const cur = getEntry(secIndex,qid);
+  state.store[k(secIndex,qid)] = {v:v, checked:cur.checked===true};
+  saveStore();
+}
+function setChecked(secIndex, qid, checked){
+  const cur = getEntry(secIndex,qid);
+  state.store[k(secIndex,qid)] = {v:cur.v, checked:!!checked};
+  saveStore();
+}
+
+function isGraded(it){
+  return it.type !== "info" && it.type !== "text" && it.type !== "self";
+}
+
+function grade(it, v){
+  if(it.type==="mc"){
+    if(v==null) return null;
+    return String(v) === String(it.ans);
+  }
+  if(it.type==="num"){
+    if(v==null || String(v).trim()==="") return null;
+    const n = parseNum(v);
+    if(!Number.isFinite(n)) return false;
+    return n === it.ans;
+  }
+  if(it.type==="time"){
+    if(v==null || String(v).trim()==="") return null;
+    const m = parseTime(v);
+    if(m==null) return false;
+    return m === it.ansMinutes;
+  }
+  if(it.type==="mul2"){
+    const arr = Array.isArray(v) ? v : null;
+    if(!arr || arr.length<6) return null;
+    if(arr.every(x => String(x ?? "").trim()==="")) return null;
+    const nums = arr.map(parseNum);
+    for(const x of nums){ if(!Number.isFinite(x)) return false; }
+    const s1 = [nums[0],nums[1],nums[2]];
+    const s2 = [nums[3],nums[4],nums[5]];
+    if(s1[0]*s1[1] !== s1[2]) return false;
+    if(s2[0]*s2[1] !== s2[2]) return false;
+    const set = new Set(it.acceptPairs.map(p=>p.join(",")));
+    return set.has(s1.join(",")) && set.has(s2.join(","));
+  }
+  if(it.type==="parts"){
+    const obj = (v && typeof v==="object") ? v : null;
+    if(!obj) return null;
+    if(String(obj.count ?? "").trim()==="" || String(obj.cong ?? "").trim()==="") return null;
+    const c = parseNum(obj.count);
+    const cong = String(obj.cong || "");
+    if(!Number.isFinite(c)) return false;
+    return c === it.ans.count && cong === it.ans.cong;
+  }
+  if(it.type==="frac"){
+    if(v==null || String(v).trim()==="") return null;
+    const f = parseFrac(v);
+    if(!f) return false;
+    for(const a of it.ansList){
+      if(sameFrac(f,a)) return true;
+    }
+    return false;
+  }
+  return null;
+}
+
+function computeScore(){
+  let total=0, correct=0;
+  TEST.forEach((sec, sidx)=>{
+    sec.items.forEach(it=>{
+      if(!isGraded(it)) return;
+      total++;
+      const e = getEntry(sidx,it.id);
+      if(e.checked===true){
+        const ok = grade(it, e.v);
+        if(ok===true) correct++;
+      }
+    });
+  });
+  return {total, correct};
+}
+
+function render(){
+  const secIndex = state.idx;
+  const sec = TEST[secIndex];
+
+  partLabel.textContent = `الجزء ${toArDigits(secIndex+1)} من ${toArDigits(TEST.length)}`;
+  bar.style.width = Math.round(((secIndex+1)/TEST.length)*100) + "%";
+
+  const sc = computeScore();
+  scorePill.textContent = `النتيجة: ${toArDigits(sc.correct)} / ${toArDigits(sc.total)}`;
+
+  prevBtn.disabled = (secIndex===0);
+  nextBtn.textContent = (secIndex===TEST.length-1) ? "إنهاء" : "التالي";
+
+  let html = `<div class="sectionTitle"><h2>${sec.title}</h2><span class="pill">${toArDigits(sec.items.length)} بند</span></div>`;
+  html += `<div class="items">`;
+  sec.items.forEach((it, idx)=>{
+    html += renderItem(it, secIndex, idx+1);
+  });
+  html += `</div>`;
+  stage.innerHTML = html;
+}
+
+function renderItem(it, secIndex, qNo){
+  const entry = getEntry(secIndex,it.id);
+  const checked = entry.checked===true;
+  const ok = checked ? (isGraded(it) ? grade(it, entry.v) : null) : null;
+
+  let cls = "item";
+  if(checked && ok!==null) cls = ok ? "item good" : "item bad";
+
+  const fb = (checked && ok!==null)
+    ? (ok ? `<span class="fb ok">صحيح ✅</span>` : `<span class="fb badc">غير صحيح ❌</span>`)
+    : `<span class="fb" style="color:transparent">—</span>`;
+
+  const badge = `<span class="pill">س${toArDigits(qNo)}</span>`;
+  const visual = (typeof it.visual === "function") ? it.visual() : "";
+
+  if(it.type==="info"){
+    return `<div class="${cls}">
+      <div class="itemHead"><div class="q">${badge} ${it.prompt}</div>${fb}</div>
+      ${visual}
+    </div>`;
+  }
+
+  if(it.type==="mc"){
+    const v = entry.v;
+    const opts = it.opts.map(o=>{
+      let c="opt";
+      if(!checked && v!=null && String(v)===String(o)) c+=" selected";
+      if(checked && String(o)===String(it.ans)) c+=" correct";
+      if(checked && v!=null && String(o)===String(v) && String(v)!==String(it.ans)) c+=" wrong";
+      return `<button type="button" class="${c}" data-action="choose" data-qid="${it.id}" data-value="${encodeURIComponent(o)}">${o}</button>`;
+    }).join("");
+    return `<div class="${cls}">
+      <div class="itemHead"><div class="q">${badge} ${it.prompt}</div>${fb}</div>
+      ${visual}
+      <div class="optGrid">${opts}</div>
+    </div>`;
+  }
+
+  if(it.type==="num" || it.type==="time" || it.type==="frac"){
+    const v = entry.v ?? "";
+    const ph = it.type==="time" ? "مثال: ٥ أو ٥:٠٠" : (it.type==="frac" ? "مثال: ٢/٥" : "اكتب الإجابة");
+    return `<div class="${cls}">
+      <div class="itemHead"><div class="q">${badge} ${it.prompt}</div>${fb}</div>
+      ${visual}
+      <div class="row">
+        <input data-bind="${it.id}" value="${esc(v)}" placeholder="${ph}">
+        <button type="button" class="btn ghost" data-action="check" data-qid="${it.id}">تحقق</button>
+      </div>
+    </div>`;
+  }
+
+  if(it.type==="mul2"){
+    const arr = Array.isArray(entry.v) ? entry.v : ["","","","","",""];
+    return `<div class="${cls}">
+      <div class="itemHead"><div class="q">${badge} ${it.prompt}</div>${fb}</div>
+      ${visual}
+      <div class="row" style="align-items:flex-end">
+        <div>
+          <div class="hint">جملة (١)</div>
+          <div class="row">
+            <input data-mul="${it.id}" data-idx="0" value="${esc(arr[0])}" placeholder="□">
+            <span class="pill">×</span>
+            <input data-mul="${it.id}" data-idx="1" value="${esc(arr[1])}" placeholder="□">
+            <span class="pill">=</span>
+            <input data-mul="${it.id}" data-idx="2" value="${esc(arr[2])}" placeholder="□">
+          </div>
+        </div>
+        <div>
+          <div class="hint">جملة (٢)</div>
+          <div class="row">
+            <input data-mul="${it.id}" data-idx="3" value="${esc(arr[3])}" placeholder="□">
+            <span class="pill">×</span>
+            <input data-mul="${it.id}" data-idx="4" value="${esc(arr[4])}" placeholder="□">
+            <span class="pill">=</span>
+            <input data-mul="${it.id}" data-idx="5" value="${esc(arr[5])}" placeholder="□">
+          </div>
+        </div>
+        <button type="button" class="btn ghost" data-action="check" data-qid="${it.id}">تحقق</button>
+      </div>
+    </div>`;
+  }
+
+  if(it.type==="parts"){
+    const obj = (entry.v && typeof entry.v==="object") ? entry.v : {count:"", cong:""};
+    return `<div class="${cls}">
+      <div class="itemHead"><div class="q">${badge} ${it.prompt}</div>${fb}</div>
+      <div class="row">
+        <input data-part="${it.id}" data-field="count" value="${esc(obj.count ?? "")}" placeholder="عدد الأجزاء">
+        <select data-part="${it.id}" data-field="cong">
+          <option value="" ${(obj.cong===""||!obj.cong)?"selected":""} disabled>اختر</option>
+          <option value="متطابقة" ${obj.cong==="متطابقة"?"selected":""}>متطابقة</option>
+          <option value="غير متطابقة" ${obj.cong==="غير متطابقة"?"selected":""}>غير متطابقة</option>
+        </select>
+        <button type="button" class="btn ghost" data-action="check" data-qid="${it.id}">تحقق</button>
+      </div>
+    </div>`;
+  }
+
+  if(it.type==="text"){
+    const v = entry.v ?? "";
+    return `<div class="item">
+      <div class="itemHead"><div class="q">${badge} ${it.prompt}</div><span class="fb" style="color:transparent">—</span></div>
+      ${visual}
+      <div class="row"><textarea data-text="${it.id}" placeholder="اكتب إجابتك">${esc(v)}</textarea></div>
+    </div>`;
+  }
+
+  if(it.type==="self"){
+    const done = (entry.v===true);
+    return `<div class="item">
+      <div class="itemHead"><div class="q">${badge} ${it.prompt}</div><span class="fb" style="color:transparent">—</span></div>
+      <div class="row">
+        <button type="button" class="btn ${done?'primary':'ghost'}" data-action="toggle" data-qid="${it.id}">${done?'تم ✅':'وضع علامة (تم)'}</button>
+      </div>
+    </div>`;
+  }
+
+  return `<div class="item"><div class="q">${badge} ${it.prompt}</div></div>`;
+}
+
+/* ===== أحداث ===== */
+stage.addEventListener("click", (e)=>{
+  const choose = e.target.closest('button[data-action="choose"]');
+  if(choose){
+    const qid = choose.dataset.qid;
+    const val = decodeURIComponent(choose.dataset.value || "");
+    setValue(state.idx, qid, val);
+    setChecked(state.idx, qid, true);
+    render();
+    return;
+  }
+
+  const check = e.target.closest('button[data-action="check"]');
+  if(check){
+    const qid = check.dataset.qid;
+    setChecked(state.idx, qid, true);
+    render();
+    return;
+  }
+
+  const toggle = e.target.closest('button[data-action="toggle"]');
+  if(toggle){
+    const qid = toggle.dataset.qid;
+    const cur = getEntry(state.idx, qid).v;
+    setValue(state.idx, qid, cur===true ? false : true);
+    render();
+  }
+});
+
+stage.addEventListener("input", (e)=>{
+  const inp = e.target.closest('input[data-bind]');
+  if(inp){
+    setValue(state.idx, inp.dataset.bind, inp.value);
+    return;
+  }
+
+  const mul = e.target.closest('input[data-mul]');
+  if(mul){
+    const qid = mul.dataset.mul;
+    const idx = Number(mul.dataset.idx);
+    const cur = getEntry(state.idx, qid).v;
+    const arr = Array.isArray(cur) ? [...cur] : ["","","","","",""];
+    arr[idx] = mul.value;
+    setValue(state.idx, qid, arr);
+    return;
+  }
+
+  const txt = e.target.closest('textarea[data-text]');
+  if(txt){
+    setValue(state.idx, txt.dataset.text, txt.value);
+    return;
+  }
+
+  const part = e.target.closest('[data-part]');
+  if(part){
+    const qid = part.dataset.part;
+    const field = part.dataset.field;
+    const cur = getEntry(state.idx, qid).v;
+    const obj = (cur && typeof cur==="object") ? {...cur} : {count:"", cong:""};
+    obj[field] = part.value;
+    setValue(state.idx, qid, obj);
+  }
+});
+
+stage.addEventListener("change", (e)=>{
+  const part = e.target.closest('[data-part]');
+  if(part){
+    const qid = part.dataset.part;
+    const field = part.dataset.field;
+    const cur = getEntry(state.idx, qid).v;
+    const obj = (cur && typeof cur==="object") ? {...cur} : {count:"", cong:""};
+    obj[field] = part.value;
+    setValue(state.idx, qid, obj);
+  }
+});
+
+/* ===== Enter = تحقق ===== */
+stage.addEventListener("keydown", (e)=>{
+  if(e.key !== "Enter") return;
+  const t = e.target;
+  const isInput = t && (t.matches('input[data-bind], input[data-mul], input[data-part]') || t.matches('select[data-part]'));
+  if(!isInput) return;
+  e.preventDefault();
+  let qid = null;
+
+  if(t.matches('input[data-bind]')) qid = t.dataset.bind;
+  else if(t.matches('input[data-mul]')) qid = t.dataset.mul;
+  else if(t.matches('[data-part]')) qid = t.dataset.part;
+
+  if(qid){
+    setChecked(state.idx, qid, true);
+    render();
+  }
+});
+
+/* ===== تنقل ===== */
+function goTop(){ window.scrollTo({top:0,behavior:"smooth"}); }
+
+prevBtn.addEventListener("click", ()=>{
+  if(state.idx>0){ state.idx--; render(); goTop(); }
+});
+nextBtn.addEventListener("click", ()=>{
+  if(state.idx<TEST.length-1){ state.idx++; render(); goTop(); }
+  else goTop();
+});
+resetBtn.addEventListener("click", ()=>{
+  if(confirm("هل تريد/ين مسح جميع الإجابات؟")){
+    localStorage.removeItem(STORAGE_KEY);
+    state.store = {};
+    render();
+    goTop();
+  }
+});
+
+render();
+</script>
+</body>
+</html>
